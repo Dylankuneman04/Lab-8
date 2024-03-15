@@ -39,21 +39,21 @@ void mergeSort(int pData[], int l, int r) {
         mergeSort(pData, l, m);
         mergeSort(pData, m+1, r);
 
-        // Merge the sorted halves
+        // Merge the two halves
         int i, j, k;
-        int n1 = m - l + 1;
-        int n2 = r - m;
+        int num1 = m - l + 1;
+        int num2 = r - m;
         
         // create temporary arrays
-        int *L = (int *)Alloc(sizeof(int) * n1);
-        int *R = (int *)Alloc(sizeof(int) * n2);
+        int *Left = (int *)Alloc(sizeof(int) * num1);
+        int *Right = (int *)Alloc(sizeof(int) * num2);
         
         // Copy data to temporary arrays L[] and R[]
-        for (i = 0; i < n1; i++) {
-            L[i] = pData[l + i];
+        for (i = 0; i < num1; i++) {
+            Left[i] = pData[l + i];
 		}
-        for (j = 0; j < n2; j++) {
-            R[j] = pData[m + 1 + j];
+        for (j = 0; j < num2; j++) {
+            Right[j] = pData[m + 1 + j];
 		}
         
 		i = 0;
@@ -62,34 +62,34 @@ void mergeSort(int pData[], int l, int r) {
 
 		//Goes thorugh both arrays and determines which sorted index is the lowest and which is the highest
 		//Then appends lowest element back to pData and adds 1 to each of the indexs
-        while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
-                pData[k] = L[i];
+        while (i < num1 && j < num2) {
+            if (Left[i] <= Right[j]) {
+                pData[k] = Left[i];
                 i++;
             } else {
-                pData[k] = R[j];
+                pData[k] = Right[j];
                 j++;
             }
             k++;
         }
         
         // Adds remaining elements of array L if any remain
-        while (i < n1) {
-            pData[k] = L[i];
+        while (i < num1) {
+            pData[k] = Left[i];
             i++;
             k++;
         }
         
         // Adds remaining elements of array R if any remain
-        while (j < n2) {
-            pData[k] = R[j];
+        while (j < num2) {
+            pData[k] = Right[j];
             j++;
             k++;
         }
         
-        // Deallocate temporary arrays
-        DeAlloc(L);
-        DeAlloc(R);
+        // Deallocate temporary arrays memory
+        DeAlloc(Left);
+        DeAlloc(Right);
     }
 }
 // parses input file to an integer array
